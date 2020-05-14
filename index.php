@@ -21,7 +21,6 @@ function isRequired($data)
     }
 }
 
-//ths is the thing
 $dataCorrect = false;
 
 function email()
@@ -32,7 +31,6 @@ function email()
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo $emailErr = "<div class=\"alert alert-danger\">invalid email format</div>";
         } else {
-            //not seen here
             $GLOBALS["dataCorrect"] = true;
             echo $thankYou = "<div class=\"alert alert-success\">Thank you</div>";
         }
