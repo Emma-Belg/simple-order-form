@@ -11,19 +11,21 @@
 </head>
 <body>
 <div class="container">
+    <?php
+    whatIsHappening();
+    ?>
     <h1>Order food in restaurant "the Personal Ham Processors"</h1>
     <nav>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" href="?food=1">Order food</a>
+                <a class="nav-link active" href="?food=1" id="food" name="food">Order food</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?food=0">Order drinks</a>
+                <a class="nav-link" href="?food=0" id="food" name="food">Order drinks</a>
             </li>
         </ul>
     </nav>
     <form method="post">
-
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?php
@@ -82,6 +84,9 @@
                            value = "<?php sessionData("zipcode"); ?>">
                 </div>
             </div>
+            <?php
+            sentMessage();
+            ?>
         </fieldset>
 
         <fieldset>
@@ -94,9 +99,7 @@
         </fieldset>
 
         <button type="submit" class="btn btn-primary">Order!</button>
-        <?php
-        sentMessage();
-        ?>
+
     </form>
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>

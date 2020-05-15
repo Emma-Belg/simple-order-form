@@ -79,14 +79,14 @@ function sessionData($data)
     }
 }
 
-    function sentMessage()
-    {
-        if($GLOBALS["correctCount"] == 5) {
-            echo("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
-        } else {
-            echo("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
-        }
+function sentMessage()
+{
+    if ($GLOBALS["correctCount"] == 5) {
+        echo("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
+    } else {
+        echo("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
     }
+}
 
 
 function whatIsHappening()
@@ -102,20 +102,24 @@ function whatIsHappening()
 }
 
 //your products with their price.
-$products = [
-    ['name' => 'Club Ham', 'price' => 3.20],
-    ['name' => 'Club Cheese', 'price' => 3],
-    ['name' => 'Club Cheese & Ham', 'price' => 4],
-    ['name' => 'Club Chicken', 'price' => 4],
-    ['name' => 'Club Salmon', 'price' => 5]
-];
+if($_GET["food"] == 1 || empty($_GET)){
+    $products = [
+        ['name' => 'Club Ham', 'price' => 3.20],
+        ['name' => 'Club Cheese', 'price' => 3],
+        ['name' => 'Club Cheese & Ham', 'price' => 4],
+        ['name' => 'Club Chicken', 'price' => 4],
+        ['name' => 'Club Salmon', 'price' => 5]
+    ];
+} else {
+        $products = [
+            ['name' => 'Cola', 'price' => 2],
+            ['name' => 'Fanta', 'price' => 2],
+            ['name' => 'Sprite', 'price' => 2],
+            ['name' => 'Ice-tea', 'price' => 3],
+        ];
+    }
 
-$products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
-];
+
 
 $totalValue = 0;
 
