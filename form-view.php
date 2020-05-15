@@ -23,6 +23,7 @@
         </ul>
     </nav>
     <form method="post">
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?php
@@ -44,6 +45,7 @@
                 <div class="form-group col-md-6">
                     <?php
                     isRequired("street");
+                    lettersOnly("street");
                     ?>
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control"
@@ -63,6 +65,7 @@
                 <div class="form-group col-md-6">
                     <?php
                     isRequired("city");
+                    lettersOnly("city");
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
@@ -72,6 +75,7 @@
                     <?php
                     isRequired("zipcode");
                     numberOnly("streetnumber");
+                    //correctCount();
                     ?>
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control"
@@ -90,6 +94,9 @@
         </fieldset>
 
         <button type="submit" class="btn btn-primary">Order!</button>
+        <?php
+        sentMessage();
+        ?>
     </form>
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>

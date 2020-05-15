@@ -22,6 +22,7 @@ function isRequired($data)
 }
 
 $dataCorrect = false;
+$correctCount = 0;
 
 function email()
 {
@@ -32,6 +33,7 @@ function email()
             echo $emailErr = "<div class=\"alert alert-danger\">invalid email format</div>";
         } else {
             $GLOBALS["dataCorrect"] = true;
+            $GLOBALS["correctCount"]++;
             echo $thankYou = "<div class=\"alert alert-success\">Thank you</div>";
         }
     }
@@ -44,21 +46,48 @@ function numberOnly($data)
     if (isset($number)) {
         if (is_numeric($number)) {
             $GLOBALS["dataCorrect"] = true;
-            echo "<div class=\"alert alert - success\">Thank you</div>";
+            $GLOBALS["correctCount"]++;
+            echo "<div class=\"alert alert-success\">Thank you</div>";
         } else {
+            $GLOBALS["dataCorrect"] = false;
             echo "<div class=\"alert alert-danger\">Please enter only numbers.</div>";
         }
     }
 }
 
-function sessionData($data){
-    if($GLOBALS["dataCorrect"] == true){
+function lettersOnly($data)
+{
+    //if(!preg_match('/[^A-Za-z0-9]/', $_POST[$data]))
+    //could also be done with this:
+    if (ctype_alnum($_POST[$data])) {
+        $GLOBALS["dataCorrect"] = true;
+        $GLOBALS["correctCount"]++;
+        echo "<div class=\"alert alert-success\">Thank you</div>";
+    } else {
+        $GLOBALS["dataCorrect"] = false;
+        echo "<div class=\"alert alert-danger\">Please enter only letters.</div>";
+    }
+}
+
+function sessionData($data)
+{
+    if ($GLOBALS["dataCorrect"] == true) {
         $_SESSION[$data] = $_POST[$data];
         echo $_SESSION[$data];
     } else {
         $_SESSION[$data] = "";
     }
 }
+
+    function sentMessage()
+    {
+        if($GLOBALS["correctCount"] == 5) {
+            echo("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
+        } else {
+            echo("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
+        }
+    }
+
 
 function whatIsHappening()
 {
