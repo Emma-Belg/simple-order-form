@@ -116,36 +116,11 @@ if ($_GET["food"] == 1 || empty($_GET)) {
 
 $_SESSION['totalValue'] = $totalValue = 0;
 
-/*if (isset($_POST["products"])) {
-    for ($i = 0; $i < count($_POST["products"]); $i++) {
-            if ($_POST["products"] == true){
-            $totalValue = $totalValue + $products[$i]['price'];
-            var_dump($products[$i]['price']);
-            $_SESSION['totalValue'] = $totalValue;
-        }
-    }
-}*/
-$values = [];
 if (isset($_POST["products"])) {
     foreach ($products as $i => $product) {
+        //I had to change the "value" of the $_POST["products"] to = the price in the foreach loop in the view for this to work
         $totalValue = $totalValue + $_POST["products"][$i];
-        var_dump($totalValue);
     }
-/*    foreach ($products as $i => $product){
-        //if ($_POST["products"] == true){
-            $totalValue = $totalValue + $product['price'];
-            var_dump($product['price']);
-            $values[$i] = $totalValue;
-            var_dump($totalValue);
-            $_SESSION['totalValue'] = $totalValue;
-        //}
-    }*/
-/*    $sum = 0;
-    foreach ($_POST as $key => $value) {
-        if (strpos($key, "products") == true) {
-            $sum += $value;
-        }
-    }*/
 }
 
 function whatIsHappening()
