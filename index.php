@@ -114,49 +114,39 @@ if ($_GET["food"] == 1 || empty($_GET)) {
     ];
 }
 
-echo '<p>products price</p>';
-var_dump($products);
-echo '<p>products price</p>';
-var_dump($products['price']);
-
-//$totalValue = 0;
-//$totalValue = $products{'price'};
-/*$totalPrice = [];
-foreach ($products as $product) {
-    number_format($product['price'], 2);
-    array_push($totalPrice, $product);
-}*/
+$_SESSION['totalValue'] = $totalValue = 0;
 
 /*if (isset($_POST["products"])) {
-    foreach ($totalValue as $price) {
-        $totalValue[$price]+= $totalValue;
-        echo($product["price[price]"]);
-    }
-}*/
-if (isset($_POST["products"])) {
     for ($i = 0; $i < count($_POST["products"]); $i++) {
             if ($_POST["products"] == true){
-            $totalValue = $products[$i]['price'];
-            echo $totalValue;
+            $totalValue = $totalValue + $products[$i]['price'];
+            var_dump($products[$i]['price']);
+            $_SESSION['totalValue'] = $totalValue;
         }
     }
-
-}
-/*$userChoices = $_POST['products'];
-for ($i = 0; $i < count($products); $i++) {
-    if (isset($userChoices[$i])) {
-        array_push($chosenFoods, $products[$i]);
-        array_push($_SESSION['chosenfoods'], $products[$i]);
-        $totalValue += $products[$i]{'price'};
-        $_SESSION['totalvalue'] = $totalValue;
+}*/
+$values = [];
+if (isset($_POST["products"])) {
+    foreach ($products as $i => $product) {
+        $totalValue = $totalValue + $_POST["products"][$i];
+        var_dump($totalValue);
     }
-}*/
-
-/*foreach ($products as $key => $amount) {
-    $prodPrice = $products[$key]['price'];
-    $totalValue = $prodPrice * $amount;
-}*/
-echo $totalValue;
+/*    foreach ($products as $i => $product){
+        //if ($_POST["products"] == true){
+            $totalValue = $totalValue + $product['price'];
+            var_dump($product['price']);
+            $values[$i] = $totalValue;
+            var_dump($totalValue);
+            $_SESSION['totalValue'] = $totalValue;
+        //}
+    }*/
+/*    $sum = 0;
+    foreach ($_POST as $key => $value) {
+        if (strpos($key, "products") == true) {
+            $sum += $value;
+        }
+    }*/
+}
 
 function whatIsHappening()
 {
