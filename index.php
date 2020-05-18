@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
-
 //we are going to use session variables so we need to enable sessions
 session_start();
 
 $email = "";
+$dataCorrect = false;
+$correctCount = 0;
 
 function check_input($data)
 {
@@ -20,9 +21,6 @@ function isRequired($data)
         echo("<div class=\"alert alert-danger\">This field is required!</div>");
     }
 }
-
-$dataCorrect = false;
-$correctCount = 0;
 
 function email()
 {
@@ -88,6 +86,77 @@ function sentMessage()
     }
 }
 
+function deliveryTime()
+{
+    if (isset($_POST["expressOrder"])) {
+        echo("Expected express delivery time is " . date('h:i:s A', strtotime('+ 45 minutes')));
+    } else {
+        echo("Expected delivery time is around " . date('h:i:s A', strtotime('+ 45 minutes')));
+    }
+}
+
+
+//your products with their price.
+if ($_GET["food"] == 1 || empty($_GET)) {
+    $products = [
+        ['name' => 'Club Ham', 'price' => 3.20],
+        ['name' => 'Club Cheese', 'price' => 3],
+        ['name' => 'Club Cheese & Ham', 'price' => 4],
+        ['name' => 'Club Chicken', 'price' => 4],
+        ['name' => 'Club Salmon', 'price' => 5]
+    ];
+} else {
+    $products = [
+        ['name' => 'Cola', 'price' => 2],
+        ['name' => 'Fanta', 'price' => 2],
+        ['name' => 'Sprite', 'price' => 2],
+        ['name' => 'Ice-tea', 'price' => 3],
+    ];
+}
+
+echo '<p>products price</p>';
+var_dump($products);
+echo '<p>products price</p>';
+var_dump($products['price']);
+
+//$totalValue = 0;
+//$totalValue = $products{'price'};
+/*$totalPrice = [];
+foreach ($products as $product) {
+    number_format($product['price'], 2);
+    array_push($totalPrice, $product);
+}*/
+
+/*if (isset($_POST["products"])) {
+    foreach ($totalValue as $price) {
+        $totalValue[$price]+= $totalValue;
+        echo($product["price[price]"]);
+    }
+}*/
+if (isset($_POST["products"])) {
+    for ($i = 0; $i < count($_POST["products"]); $i++) {
+            if ($_POST["products"] == true){
+            $totalValue = $products[$i]['price'];
+            echo $totalValue;
+        }
+    }
+
+}
+/*$userChoices = $_POST['products'];
+for ($i = 0; $i < count($products); $i++) {
+    if (isset($userChoices[$i])) {
+        array_push($chosenFoods, $products[$i]);
+        array_push($_SESSION['chosenfoods'], $products[$i]);
+        $totalValue += $products[$i]{'price'};
+        $_SESSION['totalvalue'] = $totalValue;
+    }
+}*/
+
+/*foreach ($products as $key => $amount) {
+    $prodPrice = $products[$key]['price'];
+    $totalValue = $prodPrice * $amount;
+}*/
+echo $totalValue;
 
 function whatIsHappening()
 {
@@ -100,27 +169,5 @@ function whatIsHappening()
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-
-//your products with their price.
-if($_GET["food"] == 1 || empty($_GET)){
-    $products = [
-        ['name' => 'Club Ham', 'price' => 3.20],
-        ['name' => 'Club Cheese', 'price' => 3],
-        ['name' => 'Club Cheese & Ham', 'price' => 4],
-        ['name' => 'Club Chicken', 'price' => 4],
-        ['name' => 'Club Salmon', 'price' => 5]
-    ];
-} else {
-        $products = [
-            ['name' => 'Cola', 'price' => 2],
-            ['name' => 'Fanta', 'price' => 2],
-            ['name' => 'Sprite', 'price' => 2],
-            ['name' => 'Ice-tea', 'price' => 3],
-        ];
-    }
-
-
-
-$totalValue = 0;
 
 require 'form-view.php';
