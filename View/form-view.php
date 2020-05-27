@@ -1,3 +1,4 @@
+<?php require 'Controller/FormControl.php' ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,8 +30,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?php
-                email();
-                isRequired("email");
+                $this->renderArray['email'];
                 ?>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email"
@@ -46,6 +46,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <?php
+                    $this->renderArray['email'];
                     isRequired("street");
                     lettersOnly("street");
                     ?>
@@ -55,6 +56,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <?php
+                    $this->renderArray['streetnumber'];
                     isRequired("streetnumber");
                     numberOnly("streetnumber");
                     ?>
@@ -66,8 +68,8 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <?php
+                    $this->renderArray['city'];
                     isRequired("city");
-                    lettersOnly("city");
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
@@ -75,8 +77,8 @@
                 </div>
                 <div class="form-group col-md-6">
                     <?php
+                    $this->renderArray['zipcode'];
                     isRequired("zipcode");
-                    numberOnly("streetnumber");
                     //correctCount();
                     ?>
                     <label for="zipcode">Zipcode</label>
