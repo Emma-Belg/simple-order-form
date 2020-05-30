@@ -2,24 +2,30 @@
 
 namespace Controller;
 
-use Model\FormCheck;
+use Model\FormCheckRequired;
 use Model\EmailCheck;
 
-class FormControl
+include 'Model/FormCheckRequired.php';
+include 'Model/EmailCheck.php';
+
+var_dump(file_exists('/var/www/simple-order-form/Model/FormCheckRequired.php'));
+
+class FormController
 {
-    //private string $streetNumber = "streetnumber";
-    private FormCheck $form;
-    private $postData = "";
-
-
-    function __construct()
+    public function render()
     {
-        $this->form = new FormCheck();
+        $form = new FormCheckRequired();
+        $email = new EmailCheck();
+        //require 'View/form-view.php';
+        return $renderArray = [
+            'email' => $email->email("email"),
+            'emailRequired' => $email->isRequired("email"),
+            'streetName' => $form->lettersOnly("street"),
+            'streetNumber' => $form->numberOnly("streetnumber"),
+            'city' => $form->lettersOnly("city"),
+            'postcode' => $form->numberOnly("zipcode"),
+        ];
     }
-
-        /**
-         * @Route("/View", name="form-view")
-         */
 
 /*    function index(){
         $email = new EmailCheck();
@@ -58,20 +64,5 @@ class FormControl
         require 'View/form-view.php';
         $this->render('View/form-view.php', $renderArray);
     }*/
-
-    public function render()
-    {
-        $email = new EmailCheck();
-        $renderArray = [
-            'email' => $email->email(),
-            'streetName' => $this->form->lettersOnly("street"),
-            'streetNumber' => $this->form->numberOnly("streetnumber"),
-            'city' => $this->form->lettersOnly("city"),
-            'postcode' => $this->form->numberOnly("zipcode"),
-        ];
-        require 'View/form-view.php';
-        return $renderArray;
-    }
-
 
 }

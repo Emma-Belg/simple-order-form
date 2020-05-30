@@ -1,4 +1,4 @@
-<?php require 'Controller/FormControl.php' ?>
+<?php require 'Controller/FormController.php'; ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,7 +30,8 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?php
-                $this->renderArray['email'];
+                $form = new \Controller\FormController();
+                var_dump($form->render());
                 ?>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email"
@@ -47,8 +48,8 @@
                 <div class="form-group col-md-6">
                     <?php
                     $this->renderArray['email'];
-                    isRequired("street");
-                    lettersOnly("street");
+                    //isRequired("street");
+                    //lettersOnly("street");
                     ?>
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control"
@@ -57,8 +58,8 @@
                 <div class="form-group col-md-6">
                     <?php
                     $this->renderArray['streetnumber'];
-                    isRequired("streetnumber");
-                    numberOnly("streetnumber");
+                    //isRequired("streetnumber");
+                    //numberOnly("streetnumber");
                     ?>
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control"
@@ -69,7 +70,7 @@
                 <div class="form-group col-md-6">
                     <?php
                     $this->renderArray['city'];
-                    isRequired("city");
+                    //isRequired("city");
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
@@ -78,7 +79,7 @@
                 <div class="form-group col-md-6">
                     <?php
                     $this->renderArray['zipcode'];
-                    isRequired("zipcode");
+                    //isRequired("zipcode");
                     //correctCount();
                     ?>
                     <label for="zipcode">Zipcode</label>

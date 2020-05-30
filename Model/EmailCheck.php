@@ -1,16 +1,16 @@
 <?php
 
-
 namespace Model;
 
+use \Model\IsRequiredForm;
+require_once "IsRequiredForm.php";
 
-class EmailCheck
+class EmailCheck extends \Model\IsRequiredForm
 {
-    private $email;
     private bool $dataCorrect = false;
     private int $correctCount = 0;
 
-    function check_input($data) : string
+    static function check_input($data) : string
     {
         $data = trim($data);
         $data = stripslashes($data);
@@ -18,12 +18,12 @@ class EmailCheck
         return $data;
     }
 
-    function email()
+    function email($email)
     {
-        if (isset($_POST["email"])) {
-            $this->email::check_input($_POST["email"]);
+        if (isset($_POST[$email])) {
+            EmailCheck::check_input($_POST[$email]);
             // check if e-mail address is well-formed
-            if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($_POST[$email], FILTER_VALIDATE_EMAIL)) {
                 $echo = "<div class=\"alert alert-danger\">invalid email format</div>";
             } else {
                 $this->dataCorrect = true;

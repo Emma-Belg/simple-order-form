@@ -1,18 +1,22 @@
 <?php
 declare(strict_types=1);
-//we are going to use session variables so we need to enable sessions
+
+use Controller\FormController;
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 session_start();
 
+//include all your controllers here
+//require 'Controller/FormController.php';
+include 'View/form-view.php';
 
-function deliveryTime()
-{
-    if (isset($_POST["expressOrder"])) {
-        echo("Expected express delivery time is " . date('h:i:s A', strtotime('+ 45 minutes')));
-    } else {
-        echo("Expected delivery time is around " . date('h:i:s A', strtotime('+ 45 minutes')));
-    }
-}
-
+//you could write a simple IF here based on some $_GET or $_POST vars, to choose your controller
+//this file should never be more than 20 lines of code!
+$controller = new FormController();
+$controller->render();
 
 
 function whatIsHappening()
@@ -27,4 +31,4 @@ function whatIsHappening()
     var_dump($_SESSION);
 }
 
-require 'form-view.php';
+
