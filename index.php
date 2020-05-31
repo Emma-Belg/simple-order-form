@@ -7,12 +7,11 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-session_start();
-
 //include all your controllers here
-//require 'Controller/FormController.php';
-include 'View/form-view.php';
+require 'Controller/FormController.php';
+//include 'View/form-view.php';
 
+session_start();
 //you could write a simple IF here based on some $_GET or $_POST vars, to choose your controller
 //this file should never be more than 20 lines of code!
 $controller = new FormController();
@@ -30,5 +29,3 @@ function whatIsHappening()
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-
-

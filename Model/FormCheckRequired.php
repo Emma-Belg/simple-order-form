@@ -8,31 +8,38 @@ require_once "IsRequiredForm.php";
 
 class FormCheckRequired extends \Model\IsRequiredForm
 {
-    //private string $data = "";
+    //private ?string $value = "";
     private bool $dataCorrect = false;
     private int $correctCount = 0;
     private const NUMBEROFREQUIREDINPUT = 5;
 
 ////////////////////////
-/// ///////////////////
-/// Consider using isRequired in a parent class that this class can extend from... or just in the constructor???
-/// //
-/// Probably use the USerInputToSession as an Interface?
+////
+/// Probably use the UserInputToSession as an Interface?
+///
 
     /*    function __construct($data)
         {
             return $this->isRequired($data);
         }*/
 
+/*    private function checkValues($postValue)
+    {
+        $this->value = "";
+        if(isset($_POST[$postValue])){
+            $this->value = $_POST[$postValue];
+        }
+    }*/
 
     function numberOnly($data)
     {
-        if(!isset($_POST[$data])) {
-            $data = 0;
-            $number = $_POST[$data];
+        $echo = "uh oh numbers";
+        //$this->value = $this->checkValues($data);
+        if(empty($_POST[$data])) {
+            $value = $_POST[$data];
 
             //if (isset($number)) {
-                if (is_numeric($number)) {
+                if (is_numeric($value)) {
                     $this->dataCorrect = true;
                     $this->correctCount++;
                     $echo = "<div class=\"alert alert-success\">Thank you</div>";
@@ -40,16 +47,17 @@ class FormCheckRequired extends \Model\IsRequiredForm
                     $this->dataCorrect = false;
                     $echo = "<div class=\"alert alert-danger\">Please enter only numbers.</div>";
                 }
-                echo $echo;
-                return $echo;
             }
         //}
+        echo $echo;
+        return $echo;
     }
 
     function lettersOnly($data)
     {
+        $echo = "uh oh letters";
         if(!isset($_POST[$data])) {
-            $data = "test";
+            //$data = "";
             //if(!preg_match('/[^A-Za-z0-9]/', $_POST[$data]))
             //could also be done with this:
             if (ctype_alnum($_POST[$data])) {
@@ -60,9 +68,9 @@ class FormCheckRequired extends \Model\IsRequiredForm
                 $this->dataCorrect = false;
                 $echo = "<div class=\"alert alert-danger\">Please enter only letters.</div>";
             }
-            echo $echo;
-            return $echo;
         }
+        echo $echo;
+        return $echo;
     }
 
     function sessionData($data)
@@ -77,11 +85,14 @@ class FormCheckRequired extends \Model\IsRequiredForm
 
     function sentMessage()
     {
+        $echo = "sent message";
         if ($this->dataCorrect == self::NUMBEROFREQUIREDINPUT) {
-            echo("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
+            $echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
         } else {
-            echo("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
+            $echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
         }
+        echo $echo;
+        return $echo;
     }
 
 }

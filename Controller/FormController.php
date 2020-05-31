@@ -1,5 +1,4 @@
 <?php
-
 namespace Controller;
 
 use Model\FormCheckRequired;
@@ -8,23 +7,22 @@ use Model\EmailCheck;
 include 'Model/FormCheckRequired.php';
 include 'Model/EmailCheck.php';
 
-var_dump(file_exists('/var/www/simple-order-form/Model/FormCheckRequired.php'));
+//var_dump(file_exists('/var/www/simple-order-form/Model/FormCheckRequired.php'));
 
 class FormController
 {
-    public function render()
+     public function render()
     {
         $form = new FormCheckRequired();
         $email = new EmailCheck();
-        //require 'View/form-view.php';
-        return $renderArray = [
+        $renderArray = [
             'email' => $email->email("email"),
-            'emailRequired' => $email->isRequired("email"),
             'streetName' => $form->lettersOnly("street"),
             'streetNumber' => $form->numberOnly("streetnumber"),
             'city' => $form->lettersOnly("city"),
             'postcode' => $form->numberOnly("zipcode"),
         ];
+        require 'View/form-view.php';
     }
 
 /*    function index(){

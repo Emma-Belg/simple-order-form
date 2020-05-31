@@ -1,4 +1,4 @@
-<?php require 'Controller/FormController.php'; ?>
+<?php //require 'Controller/FormController.php'; ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,15 +30,13 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?php
-                $form = new \Controller\FormController();
-                var_dump($form->render());
+                //echo($renderArray['email']);
                 ?>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email"
-                       value = "<?php sessionData("email"); ?>"
+                       value = "test email<?php //sessionData("email"); ?>"
                        class="form-control"/>
             </div>
-            <div></div>
         </div>
 
         <fieldset>
@@ -47,48 +45,48 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <?php
-                    $this->renderArray['email'];
+                    //echo($renderArray['streetName']);
                     //isRequired("street");
                     //lettersOnly("street");
                     ?>
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control"
-                           value = "<?php sessionData("street"); ?>">
+                           value = "test street<?php //sessionData("street"); ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <?php
-                    $this->renderArray['streetnumber'];
+                    //$this->renderArray['streetNumber'];
                     //isRequired("streetnumber");
                     //numberOnly("streetnumber");
                     ?>
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control"
-                           value = "<?php sessionData("streetnumber"); ?>">
+                           value = "<?php //sessionData("streetnumber"); ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <?php
-                    $this->renderArray['city'];
+                    //$this->renderArray['city'];
                     //isRequired("city");
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
-                           value = "<?php sessionData("city"); ?>">
+                           value = "<?php //sessionData("city"); ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <?php
-                    $this->renderArray['zipcode'];
+                    //$this->renderArray['postcode'];
                     //isRequired("zipcode");
                     //correctCount();
                     ?>
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control"
-                           value = "<?php sessionData("zipcode"); ?>">
+                           value = "<?php //sessionData("zipcode"); ?>">
                 </div>
             </div>
             <?php
-            sentMessage();
+            //sentMessage();
             ?>
         </fieldset>
 
@@ -104,7 +102,7 @@
         <button type="submit" name="normalOrder" class="btn btn-primary">Normal Order</button>
         <button type="submit" name="expressOrder" class="btn btn-primary">Express Delivery</button>
         <?php
-        deliveryTime();
+        //deliveryTime();
         ?>
 
     </form>
