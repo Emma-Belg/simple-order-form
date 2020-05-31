@@ -2,6 +2,7 @@
 
 namespace Model;
 
+//Q: difference between use, require and require_once
 use \Model\IsRequiredForm;
 require_once "IsRequiredForm.php";
 
@@ -38,5 +39,4 @@ class EmailCheck extends \Model\IsRequiredForm
         echo $echo;
         echo $required;
     }
-
 }

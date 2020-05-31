@@ -4,15 +4,16 @@ namespace Model;
 
 class Products
 {
-    private $products = [
+    private array $products = [
         ['name' => 'Cola', 'price' => 2],
         ['name' => 'Fanta', 'price' => 2],
         ['name' => 'Sprite', 'price' => 2],
         ['name' => 'Ice-tea', 'price' => 3],
-        ];
+    ];
 
     //otherwise change this to a constructor and put the else back in
-    function getFood(){
+    function getFood()
+    {
         //your products with their price.
         if ($_GET["food"] == 1 || empty($_GET)) {
             $this->products = [
@@ -22,19 +23,19 @@ class Products
                 ['name' => 'Club Chicken', 'price' => 4],
                 ['name' => 'Club Salmon', 'price' => 5]
             ];
+        } else {
+            $this->products = [
+                ['name' => 'Cola', 'price' => 2],
+                ['name' => 'Fanta', 'price' => 2],
+                ['name' => 'Sprite', 'price' => 2],
+                ['name' => 'Ice-tea', 'price' => 3],
+            ];
         }
-        /*else {
-    $products = [
-        ['name' => 'Cola', 'price' => 2],
-        ['name' => 'Fanta', 'price' => 2],
-        ['name' => 'Sprite', 'price' => 2],
-        ['name' => 'Ice-tea', 'price' => 3],
-    ];
-}*/
+        return $this->products;
     }
 
-    function getPrice(){
-
+    function getPrice()
+    {
         $_SESSION['totalValue'] = $totalValue = 0;
 
         if (isset($_POST["products"])) {
@@ -43,7 +44,6 @@ class Products
                 $totalValue = $totalValue + $_POST["products"][$i];
             }
         }
+        return $_SESSION['totalValue'];
     }
-
-
 }

@@ -1,4 +1,5 @@
-<?php //require 'Controller/FormController.php'; ?>
+<?php //require 'Controller/FormController.php';
+require_once'Controller/DeliveryTimeController.php'?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,8 +47,6 @@
                 <div class="form-group col-md-6">
                     <?php
                     //echo($renderArray['streetName']);
-                    //isRequired("street");
-                    //lettersOnly("street");
                     ?>
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control"
@@ -55,9 +54,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <?php
-                    //$this->renderArray['streetNumber'];
-                    //isRequired("streetnumber");
-                    //numberOnly("streetnumber");
+                    $this->renderArray['streetNumber'];
                     ?>
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control"
@@ -68,7 +65,6 @@
                 <div class="form-group col-md-6">
                     <?php
                     //$this->renderArray['city'];
-                    //isRequired("city");
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
@@ -77,8 +73,6 @@
                 <div class="form-group col-md-6">
                     <?php
                     //$this->renderArray['postcode'];
-                    //isRequired("zipcode");
-                    //correctCount();
                     ?>
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control"
@@ -103,11 +97,13 @@
         <button type="submit" name="expressOrder" class="btn btn-primary">Express Delivery</button>
         <?php
         //deliveryTime();
+        $deliveryTime = new \Controller\DeliveryTimeController();
+        $deliveryTime->render()->$deliveryTime;
         ?>
 
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $productValues//echo $totalValue ?></strong> in food and drinks.</footer>
 </div>
 
 <style>
