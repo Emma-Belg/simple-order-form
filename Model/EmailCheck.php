@@ -20,7 +20,8 @@ class EmailCheck extends \Model\IsRequiredForm
 
     function email($email)
     {
-        $echo = "uh oh";
+        $echo = "no email";
+        $required = "";
         if (isset($_POST[$email])) {
             EmailCheck::check_input($_POST[$email]);
             // check if e-mail address is well-formed
@@ -32,10 +33,10 @@ class EmailCheck extends \Model\IsRequiredForm
                 $echo = "<div class=\"alert alert-success\">Thank you</div>";
             }
         } else {
-            $echo = $this->isRequired($email);
+            $required = $this->isRequired($email);
         }
         echo $echo;
-        return $echo;
+        echo $required;
     }
 
 }
