@@ -15,20 +15,30 @@ class Products
     function getFood()
     {
         //your products with their price.
-        if ($_GET["food"] == 1 || empty($_GET)) {
+        if(isset($_GET["food"])) {
+            if ($_GET["food"] == 1 || empty($_GET)) {
+                $this->products = [
+                    ['name' => 'Club Ham', 'price' => 3.20],
+                    ['name' => 'Club Cheese', 'price' => 3],
+                    ['name' => 'Club Cheese & Ham', 'price' => 4],
+                    ['name' => 'Club Chicken', 'price' => 4],
+                    ['name' => 'Club Salmon', 'price' => 5]
+                ];
+            } else {
+                $this->products = [
+                    ['name' => 'Cola', 'price' => 2],
+                    ['name' => 'Fanta', 'price' => 2],
+                    ['name' => 'Sprite', 'price' => 2],
+                    ['name' => 'Ice-tea', 'price' => 3],
+                ];
+            }
+        } else {
             $this->products = [
                 ['name' => 'Club Ham', 'price' => 3.20],
                 ['name' => 'Club Cheese', 'price' => 3],
                 ['name' => 'Club Cheese & Ham', 'price' => 4],
                 ['name' => 'Club Chicken', 'price' => 4],
                 ['name' => 'Club Salmon', 'price' => 5]
-            ];
-        } else {
-            $this->products = [
-                ['name' => 'Cola', 'price' => 2],
-                ['name' => 'Fanta', 'price' => 2],
-                ['name' => 'Sprite', 'price' => 2],
-                ['name' => 'Ice-tea', 'price' => 3],
             ];
         }
         return $this->products;

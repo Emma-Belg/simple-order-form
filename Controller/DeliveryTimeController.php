@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Model\DeliveryTime;
+include_once 'Model/DeliveryTime.php';
 
 class DeliveryTimeController
 {
@@ -10,8 +11,11 @@ class DeliveryTimeController
     public function render()
     {
         $deliveryTime = new DeliveryTime();
-        $deliveryTimes = $deliveryTime->deliveryTime();
-        require 'View/form-view.php';
-        return $deliveryTimes;
+        //$deliveryTimes = $deliveryTime->deliveryTime();
+        $deliveryArray = [
+            'deliveryTimeMessage' => $deliveryTime->deliveryTime(),
+        ];
+        require_once 'View/form-view.php';
+        //return $deliveryArray;
     }
 }

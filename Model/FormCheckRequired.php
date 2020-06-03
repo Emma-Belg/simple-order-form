@@ -9,7 +9,7 @@ require_once "IsRequiredForm.php";
 class FormCheckRequired extends \Model\IsRequiredForm
 {
     //private ?string $value = "";
-    private string $required = "";
+    private string $echo = "";
     private bool $dataCorrect = false;
     private int $correctCount = 0;
     private const NUMBEROFREQUIREDINPUT = 5;
@@ -29,8 +29,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
 
     function numberOnly($data)
     {
-        $echo = "no numbers entered";
-        //$this->value = $this->checkValues($data);
+        $this->echo = "no numbers entered";
         if(isset($_POST[$data])) {
             $number = $_POST[$data];
 
@@ -38,38 +37,36 @@ class FormCheckRequired extends \Model\IsRequiredForm
                 if (is_numeric($number)) {
                     $this->dataCorrect = true;
                     $this->correctCount++;
-                    $echo = "<div class=\"alert alert-success\">Thank you</div>";
+                    $this->echo = "<div class=\"alert alert-success\">Thank you</div>";
                 } else {
                     $this->dataCorrect = false;
-                    $echo = "<div class=\"alert alert-danger\">Please enter only numbers.</div>";
+                    $this->echo = "<div class=\"alert alert-danger\">Please enter only numbers.</div>";
                 }
             }
         } else {
-            $this->required = $this->isRequired($data);
+            $this->echo = $this->isRequired($data);
         }
-        echo $echo;
-        echo $this->required;
+        return $this->echo;
     }
 
     function lettersOnly($data)
     {
-        $echo = "no letters entered";
+        $this->echo = "no letters entered";
         if(isset($_POST[$data])) {
             //if(!preg_match('/[^A-Za-z0-9]/', $_POST[$data]))
             //could also be done with this:
             if (ctype_alnum($_POST[$data])) {
                 $this->dataCorrect = true;
                 $this->correctCount++;
-                $echo = "<div class=\"alert alert-success\">Thank you</div>";
+                $this->echo = "<div class=\"alert alert-success\">Thank you</div>";
             } else {
                 $this->dataCorrect = false;
-                $echo = "<div class=\"alert alert-danger\">Please enter only letters.</div>";
+                $this->echo = "<div class=\"alert alert-danger\">Please enter only letters.</div>";
             }
         } else {
-            $this->required = $this->isRequired($data);
+            $this->echo = $this->isRequired($data);
         }
-        echo $echo;
-        echo $this->required;
+        return $this->echo;
     }
 
     function sessionData($data)
@@ -84,14 +81,13 @@ class FormCheckRequired extends \Model\IsRequiredForm
 
     function sentMessage()
     {
-        $echo = "sent message";
+        $this->echo = "sent message";
         if ($this->dataCorrect == self::NUMBEROFREQUIREDINPUT) {
-            $echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
+            $this->echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
         } else {
-            $echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
+            $this->echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
         }
-        echo $echo;
-        return $echo;
+        return  $this->echo;
     }
 
 }

@@ -4,14 +4,12 @@ namespace Controller;
 use Model\FormCheckRequired;
 use Model\EmailCheck;
 
-include 'Model/FormCheckRequired.php';
-include 'Model/EmailCheck.php';
+include_once 'Model/FormCheckRequired.php';
+include_once 'Model/EmailCheck.php';
 
-//var_dump(file_exists('/var/www/simple-order-form/Model/FormCheckRequired.php'));
 
 class FormController
 {
-    private array $renderArray = [];
     //Error: Typed property Controller\FormController::$renderArray must not be accessed before initialization in /var/www/simple-order-form/View/form-view.php on line 58
     //atal error: Uncaught Error: Typed property Controller\FormController::$renderArray must not be accessed before initialization in /var/www/simple-order-form/View/form-view.php on line 58
      public function render()
@@ -24,8 +22,10 @@ class FormController
             'streetNumber' => $form->numberOnly("streetnumber"),
             'city' => $form->lettersOnly("city"),
             'postcode' => $form->numberOnly("zipcode"),
+            'sendMessage' => $form->sentMessage(),
         ];
-        require 'View/form-view.php';
+        require_once 'View/form-view.php';
+        //require 'View/form-view.html.twig';
     }
 
 /*    function index(){

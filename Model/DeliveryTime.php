@@ -12,6 +12,7 @@ class DeliveryTime
         } else {
             $echo = ("Expected delivery time is around " . date('h:i:s A', strtotime('+ 45 minutes')));
         }
+        //echo $echo;
         return $echo;
     }
 }
