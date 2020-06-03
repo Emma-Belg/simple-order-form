@@ -38,7 +38,7 @@
                 ?>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email"
-                       value = "test email<?php //sessionData("email"); ?>"
+                       value = "<?php echo ($sessionArray['email'])//sessionData("email"); ?>"
                        class="form-control"/>
             </div>
         </div>
@@ -53,7 +53,7 @@
                     ?>
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control"
-                           value = "test street<?php //sessionData("street"); ?>">
+                           value = "<?php echo ($sessionArray['streetName'])//sessionData("street"); ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <?php
@@ -61,7 +61,7 @@
                     ?>
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control"
-                           value = "<?php //sessionData("streetnumber"); ?>">
+                           value = "<?php echo ($sessionArray['streetNumber'])//sessionData("streetnumber"); ?>">
                 </div>
             </div>
             <div class="form-row">
@@ -71,7 +71,7 @@
                     ?>
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control"
-                           value = "<?php //sessionData("city"); ?>">
+                           value = "<?php echo ($sessionArray['city'])//sessionData("city"); ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <?php
@@ -79,7 +79,7 @@
                     ?>
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control"
-                           value = "<?php //sessionData("zipcode"); ?>">
+                           value = "<?php echo ($sessionArray['postcode'])//sessionData("zipcode"); ?>">
                 </div>
             </div>
 
@@ -87,9 +87,11 @@
 
         <fieldset>
             <legend>Products</legend>
-            <?php foreach ($products AS $i => $product): ?>
+            <?php foreach ($renderArray['productNames'] AS $i => $product): ?>
                 <label>
-                    <input type="checkbox" value="<?php echo $product['price'] ?>" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
+                    <input type="checkbox"
+                           value="<?php echo $product['price'] ?>"
+                           name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
                     &euro; <?php echo number_format($product['price'], 2) ?></label><br />
             <?php endforeach; ?>
         </fieldset>
@@ -97,13 +99,14 @@
         <button type="submit" name="normalOrder" class="btn btn-primary">Normal Order</button>
         <button type="submit" name="expressOrder" class="btn btn-primary">Express Delivery</button>
         <?php
+        echo ($renderArray['deliveryTime']);
         //echo ($deliveryTimes);
-        echo ($deliveryArray['deliveryTimeMessage']);
+        //echo ($deliveryArray['deliveryTimeMessage']);
         ?>
 
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $productValues//echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $renderArray['productPrice']//echo $productValues//echo $totalValue ?></strong> in food and drinks.</footer>
 </div>
 
 <style>

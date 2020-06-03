@@ -11,7 +11,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
     //private ?string $value = "";
     private string $echo = "";
     private bool $dataCorrect = false;
-    private int $correctCount = 0;
+    //private int $correctCount = 0;
     private const NUMBEROFREQUIREDINPUT = 5;
 
 ////////////////////////
@@ -27,6 +27,13 @@ class FormCheckRequired extends \Model\IsRequiredForm
         }
     }*/
 
+    /**
+ * @return int
+ */public static function getCorrectCount(): int
+    {
+        return IsRequiredForm::$correctCount;
+    }
+
     function numberOnly($data)
     {
         $this->echo = "no numbers entered";
@@ -36,7 +43,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
             if (isset($number)) {
                 if (is_numeric($number)) {
                     $this->dataCorrect = true;
-                    $this->correctCount++;
+                    IsRequiredForm::$correctCount++;
                     $this->echo = "<div class=\"alert alert-success\">Thank you</div>";
                 } else {
                     $this->dataCorrect = false;
@@ -57,7 +64,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
             //could also be done with this:
             if (ctype_alnum($_POST[$data])) {
                 $this->dataCorrect = true;
-                $this->correctCount++;
+                IsRequiredForm::$correctCount++;
                 $this->echo = "<div class=\"alert alert-success\">Thank you</div>";
             } else {
                 $this->dataCorrect = false;
@@ -71,23 +78,29 @@ class FormCheckRequired extends \Model\IsRequiredForm
 
     function sessionData($data)
     {
+        $_SESSION[$data] = "";
         if ($this->dataCorrect == true) {
             $_SESSION[$data] = $_POST[$data];
-            echo $_SESSION[$data];
-        } else {
-            $_SESSION[$data] = "";
+            $_SESSION[$data];
         }
+        return$_SESSION[$data];
     }
 
     function sentMessage()
     {
         $this->echo = "sent message";
-        if ($this->dataCorrect == self::NUMBEROFREQUIREDINPUT) {
+            if (self::getCorrectCount() == self::NUMBEROFREQUIREDINPUT) {
             $this->echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
         } else {
             $this->echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
         }
+        //IsRequiredForm::$correctCount = 0;
         return  $this->echo;
+    }
+
+    function clearForm(){
+
+
     }
 
 }

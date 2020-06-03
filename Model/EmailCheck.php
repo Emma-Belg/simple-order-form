@@ -4,12 +4,19 @@ namespace Model;
 
 //Q: difference between use, require and require_once
 use \Model\IsRequiredForm;
+
 require_once "IsRequiredForm.php";
 
 class EmailCheck extends \Model\IsRequiredForm
 {
     private bool $dataCorrect = false;
-    private int $correctCount = 0;
+    //static::$correctCount = 0;
+
+    public static function getCorrectCount(): int
+    {
+        return IsRequiredForm::$correctCount;
+    }
+
 
     static function check_input($data) : string
     {
@@ -29,7 +36,7 @@ class EmailCheck extends \Model\IsRequiredForm
                 $echo = "<div class=\"alert alert-danger\">invalid email format</div>";
             } else {
                 $this->dataCorrect = true;
-                $this->correctCount++;
+                IsRequiredForm::$correctCount++;
                 $echo = "<div class=\"alert alert-success\">Thank you</div>";
             }
         } else {

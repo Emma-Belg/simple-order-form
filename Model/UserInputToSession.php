@@ -6,7 +6,11 @@ namespace Model;
 
 class UserInputToSession
 {
-    function UserInput($input){
-        return $_SESSION[$input];
+    function userInput($input){
+        $session = "";
+        if($_POST){
+            $session = $_SESSION[$input];
+        }
+        return $session;
     }
 }
