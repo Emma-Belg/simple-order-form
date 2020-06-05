@@ -12,6 +12,7 @@ include_once 'Model/FormCheckRequired.php';
 include_once 'Model/EmailCheck.php';
 include_once 'Model/DeliveryTime.php';
 include_once 'Model/UserInputToSession.php';
+include_once 'Model/Products.php';
 
 
 class FormController
@@ -31,7 +32,7 @@ class FormController
             'streetNumber' => $form->numberOnly("streetnumber"),
             'city' => $form->lettersOnly("city"),
             'postcode' => $form->numberOnly("zipcode"),
-            'sendMessage' => $form->sentMessage(),
+            'sendMessage' => $inputSession->sentMessage(),
             'deliveryTime' => $delivery->deliveryTime(),
             'productNames' => $product->getFood(),
             'productPrice' => $product->getPrice(),

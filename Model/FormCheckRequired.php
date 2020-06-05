@@ -8,24 +8,15 @@ require_once "IsRequiredForm.php";
 
 class FormCheckRequired extends \Model\IsRequiredForm
 {
-    //private ?string $value = "";
     private string $echo = "";
     //private bool $dataCorrect = false;
     //private int $correctCount = 0;
-    private const NUMBEROFREQUIREDINPUT = 5;
+
 
 ////////////////////////
 ////
 /// Probably use the UserInputToSession as an Interface?
 ///
-
-/*    private function checkValues($postValue)
-    {
-        $this->value = "";
-        if(isset($_POST[$postValue])){
-            $this->value = $_POST[$postValue];
-        }
-    }*/
 
     /**
  * @return int
@@ -39,10 +30,15 @@ class FormCheckRequired extends \Model\IsRequiredForm
         return IsRequiredForm::$session;
     }
 
+    public static function resetSession(): ?string
+    {
+        IsRequiredForm::$session = "";
+    }
+
     function numberOnly($data)
     {
         $this->echo = "no numbers entered";
-        if(isset($_POST[$data])) {
+        if(!empty($_POST[$data])) {
             $number = $_POST[$data];
 
             if (isset($number)) {
@@ -55,8 +51,10 @@ class FormCheckRequired extends \Model\IsRequiredForm
                     $this->echo = "<div class=\"alert alert-danger\">Please enter only numbers.</div>";
                 }
             }
-        } else {
+        } elseif (isset($_POST["normalOrder"]) || isset($_POST["expressOrder"])){
             $this->echo = $this->isRequired($data);
+        } else {
+            $this->echo = "";
         }
         return $this->echo;
     }
@@ -64,19 +62,23 @@ class FormCheckRequired extends \Model\IsRequiredForm
     function lettersOnly($data)
     {
         $this->echo = "no letters entered";
-        if(isset($_POST[$data])) {
+        if(!empty($_POST[$data])) {
+            //These could be used for postcodes with numbers and letters:
+            //if(ctype_alnum($_POST[$data]))
             //if(!preg_match('/[^A-Za-z0-9]/', $_POST[$data]))
-            //could also be done with this:
-            if (ctype_alnum($_POST[$data])) {
+            if (!preg_match('/[^A-Za-z]/', $_POST[$data])) {
                 $this->dataCorrect = true;
                 IsRequiredForm::$correctCount++;
                 $this->echo = "<div class=\"alert alert-success\">Thank you</div>";
             } else {
                 $this->dataCorrect = false;
                 $this->echo = "<div class=\"alert alert-danger\">Please enter only letters.</div>";
+                self::resetSession();
             }
-        } else {
+        } elseif (isset($_POST["normalOrder"]) || isset($_POST["expressOrder"])){
             $this->echo = $this->isRequired($data);
+        } else {
+            $this->echo = "";
         }
         return $this->echo;
     }
@@ -91,21 +93,8 @@ class FormCheckRequired extends \Model\IsRequiredForm
         return$_SESSION[$data];
     }
 
-    function sentMessage()
-    {
-        $this->echo = "sent message";
-            if (self::getCorrectCount() == self::NUMBEROFREQUIREDINPUT) {
-            $this->echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
-        } else {
-            $this->echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
-        }
-        //IsRequiredForm::$correctCount = 0;
-        return  $this->echo;
-    }
 
     function clearForm(){
 
-
     }
-
 }

@@ -9,18 +9,14 @@ error_reporting(E_ALL);
 
 //include all your controllers here
 require_once 'Controller/FormController.php';
-require_once 'Controller/DeliveryTimeController.php';
-require_once 'Controller/ProductController.php';
+
 
 session_start();
 //you could write a simple IF here based on some $_GET or $_POST vars, to choose your controller
 //this file should never be more than 20 lines of code!
 $formController = new \Controller\FormController();
 $formController->render();
-$deliveryController = new \Controller\DeliveryTimeController();
-$deliveryController->render();
-$productController = new \Controller\ProductController();
-$productController->render();
+
 
 function whatIsHappening()
 {

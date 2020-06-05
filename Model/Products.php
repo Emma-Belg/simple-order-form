@@ -12,7 +12,7 @@ class Products
     ];
 
     //otherwise change this to a constructor and put the else back in
-    function getFood()
+    function getFood() : array
     {
         //your products with their price.
         if(isset($_GET["food"])) {
@@ -52,8 +52,14 @@ class Products
             foreach ($this->products as $i => $product) {
                 //I had to change the "value" of the $_POST["products"] to = the price in the foreach loop in the view for this to work
                 $totalValue = $totalValue + $_POST["products"][$i];
+                if($_POST["products"][$i] == null){
+                    $_POST["products"][$i] = 0;
+                }
             }
+        } else {
+            $totalValue = 0;
         }
+
         $_SESSION['totalValue'] = $totalValue;
         return $_SESSION['totalValue'];
     }

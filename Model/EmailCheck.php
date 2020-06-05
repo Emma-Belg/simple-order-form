@@ -33,7 +33,7 @@ class EmailCheck extends \Model\IsRequiredForm
     function email($email)
     {
         $echo = "";
-        if (isset($_POST[$email])) {
+        if (!empty($_POST[$email])) {
             EmailCheck::check_input($_POST[$email]);
             // check if e-mail address is well-formed
             if (!filter_var($_POST[$email], FILTER_VALIDATE_EMAIL)) {
@@ -43,8 +43,10 @@ class EmailCheck extends \Model\IsRequiredForm
                 IsRequiredForm::$correctCount++;
                 $echo = "<div class=\"alert alert-success\">Thank you</div>";
             }
-        } else {
+        } elseif (isset($_POST["normalOrder"]) || isset($_POST["expressOrder"])){
             $echo = $this->isRequired($email);
+        } else {
+            $echo = "";
         }
         return $echo;
     }

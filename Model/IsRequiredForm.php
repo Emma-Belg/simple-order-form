@@ -8,7 +8,7 @@ class IsRequiredForm
 {
     protected static int $correctCount = 0;
     protected bool $dataCorrect = false;
-    //protected static ?string $session = "";
+    private const NUMBEROFREQUIREDINPUT = 5;
     /**
      * @var mixed|string|null
      */
@@ -34,6 +34,21 @@ class IsRequiredForm
         return self::$session;
     }
 
+    function sentMessage()
+    {
+        $echo = "sent message";
+        if (self::$correctCount == self::NUMBEROFREQUIREDINPUT) {
+            $echo = ("<div class=\"alert alert-success\">Thank you. Your order is being processed</div>");
+        }
+        elseif (isset($_POST) || !isset($_POST)){
+            $echo = "";
+        }
+        else {
+            $echo =("<div class=\"alert alert-danger\">OH THERE IS A PROBLEM.</div>");
+        }
+        //IsRequiredForm::$correctCount = 0;
+        return $echo;
+    }
 /*    function sessionData($data)
     {
         $_SESSION[$data] = $this->session;
