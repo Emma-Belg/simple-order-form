@@ -4,6 +4,7 @@ namespace Controller;
 use Model\DeliveryTime;
 use Model\FormCheckRequired;
 use Model\EmailCheck;
+use Model\IsRequiredForm;
 use Model\Products;
 use Model\UserInputToSession;
 
@@ -23,7 +24,7 @@ class FormController
         $email = new EmailCheck();
         $delivery = new DeliveryTime();
         $product = new Products();
-        $inputSession = new UserInputToSession();
+        $inputSession = new IsRequiredForm();
         $renderArray = [
             'email' => $email->email("email"),
             'streetName' => $form->lettersOnly("street"),
@@ -36,10 +37,15 @@ class FormController
             'productPrice' => $product->getPrice(),
         ];
         $sessionArray = [
-            'email' => $form->sessionData("email"),
+            'emailInput' => $inputSession->userInput("email"),
+            'email'=> $email->sessionData("email"),
+            'streetInput' => $inputSession->userInput("street"),
             'streetName' => $form->sessionData("street"),
+            'streetNumberInput' => $inputSession->userInput("streetnumber"),
             'streetNumber' => $form->sessionData("streetnumber"),
+            'cityInput' => $inputSession->userInput("city"),
             'city' => $form->sessionData("city"),
+            'postcodeInput' => $inputSession->userInput("zipcode"),
             'postcode' => $form->sessionData("zipcode"),
         ];
 

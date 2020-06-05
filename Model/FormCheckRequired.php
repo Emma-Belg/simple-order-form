@@ -10,7 +10,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
 {
     //private ?string $value = "";
     private string $echo = "";
-    private bool $dataCorrect = false;
+    //private bool $dataCorrect = false;
     //private int $correctCount = 0;
     private const NUMBEROFREQUIREDINPUT = 5;
 
@@ -32,6 +32,11 @@ class FormCheckRequired extends \Model\IsRequiredForm
  */public static function getCorrectCount(): int
     {
         return IsRequiredForm::$correctCount;
+    }
+
+    public static function getSession(): ?string
+    {
+        return IsRequiredForm::$session;
     }
 
     function numberOnly($data)
@@ -78,7 +83,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
 
     function sessionData($data)
     {
-        $_SESSION[$data] = "";
+        $_SESSION[$data] = self::getSession();
         if ($this->dataCorrect == true) {
             $_SESSION[$data] = $_POST[$data];
             $_SESSION[$data];

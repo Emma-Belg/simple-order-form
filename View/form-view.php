@@ -98,11 +98,13 @@
 
         <button type="submit" name="normalOrder" class="btn btn-primary">Normal Order</button>
         <button type="submit" name="expressOrder" class="btn btn-primary">Express Delivery</button>
+        <br>
         <?php
         echo ($renderArray['deliveryTime']);
         //echo ($deliveryTimes);
         //echo ($deliveryArray['deliveryTimeMessage']);
         ?>
+        <br>
 
     </form>
 

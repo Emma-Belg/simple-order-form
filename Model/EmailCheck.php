@@ -9,7 +9,7 @@ require_once "IsRequiredForm.php";
 
 class EmailCheck extends \Model\IsRequiredForm
 {
-    private bool $dataCorrect = false;
+    //private bool $dataCorrect = false;
     //static::$correctCount = 0;
 
     public static function getCorrectCount(): int
@@ -17,6 +17,10 @@ class EmailCheck extends \Model\IsRequiredForm
         return IsRequiredForm::$correctCount;
     }
 
+    public static function getSession(): ?string
+    {
+        return IsRequiredForm::$session;
+    }
 
     static function check_input($data) : string
     {
@@ -44,4 +48,15 @@ class EmailCheck extends \Model\IsRequiredForm
         }
         return $echo;
     }
+
+    function sessionData($data)
+    {
+        $_SESSION[$data] = self::getSession();
+        if ($this->dataCorrect == true) {
+            $_SESSION[$data] = $_POST[$data];
+            $_SESSION[$data];
+        }
+        return$_SESSION[$data];
+    }
+
 }

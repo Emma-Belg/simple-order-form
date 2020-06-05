@@ -54,6 +54,7 @@ class Products
                 $totalValue = $totalValue + $_POST["products"][$i];
             }
         }
+        $_SESSION['totalValue'] = $totalValue;
         return $_SESSION['totalValue'];
     }
 }

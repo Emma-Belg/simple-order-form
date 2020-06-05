@@ -7,6 +7,12 @@ namespace Model;
 class IsRequiredForm
 {
     protected static int $correctCount = 0;
+    protected bool $dataCorrect = false;
+    //protected static ?string $session = "";
+    /**
+     * @var mixed|string|null
+     */
+    protected static $session = "";
 
     function isRequired($data)
     {
@@ -18,11 +24,24 @@ class IsRequiredForm
     }
 
     function userInput($input){
-        $session = "";
-        if($_POST || $_GET){
-            $session = $_SESSION[$input];
+        if($_POST || $_GET && $this->dataCorrect == true){
+            //$this->session = $_SESSION[$input];
+            self::$session = $_POST[$input];
+            $_SESSION[$input] = $_POST[$input];
+        } else{
+            self::$session = "";
         }
-        return $session;
+        return self::$session;
     }
+
+/*    function sessionData($data)
+    {
+        $_SESSION[$data] = $this->session;
+        if ($this->dataCorrect == true) {
+            $_SESSION[$data] = $_POST[$data];
+            $_SESSION[$data];
+        }
+        return$_SESSION[$data];
+    }*/
 
 }
