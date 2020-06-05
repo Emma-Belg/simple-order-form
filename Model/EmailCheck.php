@@ -4,6 +4,7 @@ namespace Model;
 
 //Q: difference between use, require and require_once
 use \Model\IsRequiredForm;
+use Model\IsRequiredForm;
 
 require_once "IsRequiredForm.php";
 
@@ -33,18 +34,16 @@ class EmailCheck extends \Model\IsRequiredForm
     function email($email)
     {
         $echo = "";
-        if (!empty($_POST[$email])) {
-            EmailCheck::check_input($_POST[$email]);
+        if (!empty($email)) {
+            EmailCheck::check_input($email);
             // check if e-mail address is well-formed
-            if (!filter_var($_POST[$email], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $echo = "<div class=\"alert alert-danger\">invalid email format</div>";
             } else {
                 $this->dataCorrect = true;
                 IsRequiredForm::$correctCount++;
                 $echo = "<div class=\"alert alert-success\">Thank you</div>";
             }
-        } elseif (isset($_POST["normalOrder"]) || isset($_POST["expressOrder"])){
-            $echo = $this->isRequired($email);
         } else {
             $echo = "";
         }

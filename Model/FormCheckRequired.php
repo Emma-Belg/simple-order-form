@@ -8,6 +8,8 @@ require_once "IsRequiredForm.php";
 
 class FormCheckRequired extends \Model\IsRequiredForm
 {
+
+
     private string $echo = "";
     //private bool $dataCorrect = false;
     //private int $correctCount = 0;
@@ -17,6 +19,7 @@ class FormCheckRequired extends \Model\IsRequiredForm
 ////
 /// Probably use the UserInputToSession as an Interface?
 ///
+
 
     /**
  * @return int

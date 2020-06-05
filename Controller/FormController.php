@@ -5,6 +5,7 @@ use Model\DeliveryTime;
 use Model\FormCheckRequired;
 use Model\EmailCheck;
 use Model\IsRequiredForm;
+use Model\OrderForm;
 use Model\Products;
 use Model\UserInputToSession;
 
@@ -21,22 +22,32 @@ class FormController
     //atal error: Uncaught Error: Typed property Controller\FormController::$renderArray must not be accessed before initialization in /var/www/simple-order-form/View/form-view.php on line 58
      public function render()
     {
-        $form = new FormCheckRequired();
+        $form = new FormCheckRequired;
+        $inputSession = new FormCheckRequired;
+
         $email = new EmailCheck();
-        $delivery = new DeliveryTime();
-        $product = new Products();
-        $inputSession = new IsRequiredForm();
+
+        $orderForm = new OrderForm($_SESSION['totalValue'] ?: 0);
+        if (isset($_POST["normalOrder"]) || isset($_POST["expressOrder"])) {
+            $orderForm->validate($email, $form);
+        }
+
+        $_SESSION['totalValue'] = $orderForm->getProductPrice();
+
+        //refactor this so it is not needed anymore
         $renderArray = [
-            'email' => $email->email("email"),
-            'streetName' => $form->lettersOnly("street"),
-            'streetNumber' => $form->numberOnly("streetnumber"),
-            'city' => $form->lettersOnly("city"),
-            'postcode' => $form->numberOnly("zipcode"),
-            'sendMessage' => $inputSession->sentMessage(),
-            'deliveryTime' => $delivery->deliveryTime(),
-            'productNames' => $product->getFood(),
-            'productPrice' => $product->getPrice(),
+            'email' => $orderForm->getEmail(),
+            'streetName' => $orderForm->getStreetName(),
+            'streetNumber' => $orderForm->getStreetNumber(),
+            'city' => $orderForm->getCity(),
+            'postcode' => $orderForm->getPostcode(),
+            'sendMessage' => $orderForm->getSendMessage(),
+            'deliveryTime' => $orderForm->getDeliveryTime(),
+            'productNames' => $orderForm->getProductNames(),//debatable if it should be in the form classes
+            'productPrice' => $orderForm->getProductPrice()
         ];
+        //end refactor
+
         $sessionArray = [
             'emailInput' => $inputSession->userInput("email"),
             'email'=> $email->sessionData("email"),
